@@ -5,6 +5,7 @@
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize BaseModel instance."""
@@ -14,15 +15,19 @@ class BaseModel:
 
     def __str__(self):
         """Return string representation of the object."""
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+                self.__class__.__name__,
+                self.id,
+                self.__dict__
+                )
 
     def save(self):
-        """Update the public instance attribute updated_at with the current datetime"""
+        """Update the public instance attribute with the current datetime"""
         self.updated_at = datetime.now()
 
     def to_dict(self):
         """
-        Return a dictionary containing all keys/values of __dict__ of the instance.
+        Return a dictionary containing all keys/values of the instance.
         Keys:
         - __class__: Class name of the object
         - created_at: Converted to string in ISO format
