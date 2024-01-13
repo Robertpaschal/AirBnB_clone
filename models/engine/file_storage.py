@@ -11,7 +11,6 @@ from models.place import Place
 from models.review import Review
 
 
-
 class FileStorage:
     __file_path = "file.json"
     __objects = {}

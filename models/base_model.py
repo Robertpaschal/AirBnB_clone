@@ -57,6 +57,12 @@ class BaseModel:
         """Update attributes from the dictionary."""
         if '__class__' in d:
             del d['__class__']
-        d['created_at'] = datetime.strptime(d['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
-        d['updated_at'] = datetime.strptime(d['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        d['created_at'] = datetime.strptime(
+                d['created_at'],
+                "%Y-%m-%dT%H:%M:%S.%f"
+            )
+        d['updated_at'] = datetime.strptime(
+                d['updated_at'],
+                "%Y-%m-%dT%H:%M:%S.%f"
+            )
         return d
