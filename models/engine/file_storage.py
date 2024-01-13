@@ -46,3 +46,18 @@ class FileStorage:
                     FileStorage.__objects[key] = obj_instance
         except FileNotFoundError:
             pass
+
+    def to_dict(self):
+        """Return a dictionary representation of all objects."""
+        obj_dictc = {}
+        for key, obj in self.__objects.items():
+            obj_dict[key] = obj.to_dict()
+        return obj_dict
+
+    def from_dict(self, obj_dict):
+        """Update objects from the dictionary."""
+        for key, obj_attrs in obj_dict.items():
+            class_name, obj_id = key.split('.')
+            class_obj = models.classes[class_name](**obj_attrs)
+            self.__objects[key] = class_obj
+        return self.__objects

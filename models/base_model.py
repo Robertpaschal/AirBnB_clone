@@ -52,3 +52,11 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
+
+    def from_dict(self, d):
+        """Update attributes from the dictionary."""
+        if '__class__' in d:
+            del d['__class__']
+        d['created_at'] = datetime.strptime(d['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        d['updated_at'] = datetime.strptime(d['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        return d
