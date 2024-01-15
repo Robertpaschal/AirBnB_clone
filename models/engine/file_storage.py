@@ -15,6 +15,8 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+
+    @property
     def all(self):
         """Return the dictionary __objects."""
         return FileStorage.__objects
@@ -31,7 +33,7 @@ class FileStorage:
             serialized_objects[key] = value.to_dict()
 
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(serialized_objects, file)
+            json.dump(serialized_objects, file, indent=4)
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
@@ -58,6 +60,15 @@ class FileStorage:
         """Update objects from the dictionary."""
         for key, attributes_dict in obj_dict.items():
             class_name, obj_id = key.split('.')
-            class_obj = models.classes[class_name](**attributes_dict)
+            class_obj = globals().get(class_name, None)(**attributes_dict)
             FileStorage.__objects[key] = class_obj
         return FileStorage.__objects
+
+    def attributes(self):
+        """Return a dictionary with class names and thier attributes."""
+        attributes_dict = {}
+        for key, value in FileStorage.__objects.items():
+            class_name = key.split('.')[0]
+            if class_name not in attributes_dict:
+                attributes_dict[class_name] = value.to_dict().keys()
+        return attributes_dict
