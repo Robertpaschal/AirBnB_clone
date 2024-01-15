@@ -47,7 +47,10 @@ class BaseModel:
         - created_at: Converted to string in ISO format
         - updated_at: Converted to string in ISO format
         """
-        obj_dict = self.__dict__.copy()
+        obj_dict = {}
+        for key, value in self.__dict__.items():
+            obj_dict[key] = value
+
         obj_dict['__class__'] = self.__class__.__name__
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
@@ -64,5 +67,5 @@ class BaseModel:
         d['updated_at'] = datetime.strptime(
                 d['updated_at'],
                 "%Y-%m-%dT%H:%M:%S.%f"
-            )
+                )
         return d
