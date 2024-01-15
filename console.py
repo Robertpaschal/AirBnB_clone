@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+
+"""Uses the cmd command module to run a simpel console for the project"""
+
 import cmd
 import json
 from models.base_model import BaseModel
