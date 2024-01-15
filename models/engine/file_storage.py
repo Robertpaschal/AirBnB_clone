@@ -15,7 +15,7 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    @property
+
     def all(self):
         """Return the dictionary __objects."""
         return FileStorage.__objects
@@ -32,7 +32,7 @@ class FileStorage:
             serialized_objects[key] = value.to_dict()
 
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(serialized_objects, file, indent=0 )
+            json.dump(serialized_objects, file, indent=0)
 
     def reload(self):
         """Deserializes the JSON file to __objects."""

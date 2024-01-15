@@ -1,0 +1,10 @@
+{
+"type.b886b9ea-be7a-4ac8-883a-12547cd37518": {
+"id": "b886b9ea-be7a-4ac8-883a-12547cd37518",
+"created_at": "2024-01-15T05:05:04.973091",
+"updated_at": "2024-01-15T05:05:04.973113",
+"name": "My_First_Model",
+"my_number": 89,
+"__class__": "BaseModel"
+}
+}
