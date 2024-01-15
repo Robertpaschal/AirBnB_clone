@@ -26,7 +26,7 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
-        """Return atring representation of the object."""
+        """Return a string representation of the object."""
         return "[{}] ({}) {}".format(
                 self.__class__.__name__,
                 self.id,
