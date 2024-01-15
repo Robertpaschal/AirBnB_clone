@@ -49,15 +49,15 @@ class FileStorage:
 
     def to_dict(self):
         """Return a dictionary representation of all objects."""
-        obj_dictc = {}
-        for key, obj in FileStorage.__objects.items():
-            obj_dict[key] = obj.to_dict()
-        return obj_dict
+        attributes = {}
+        for key, value in FileStorage.__objects.items():
+            attributes[key] = value.to_dict()
+        return attributes
 
     def from_dict(self, obj_dict):
         """Update objects from the dictionary."""
-        for key, attributes in obj_dict.items():
+        for key, attributes_dict in obj_dict.items():
             class_name, obj_id = key.split('.')
-            class_obj = models.classes[class_name](**attributes)
+            class_obj = models.classes[class_name](**attributes_dict)
             FileStorage.__objects[key] = class_obj
         return FileStorage.__objects
