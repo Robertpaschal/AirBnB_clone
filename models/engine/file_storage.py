@@ -28,8 +28,8 @@ class FileStorage:
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
         serialized_objects = {}
-        for key, value in FileStorage.__objects.items():
-            serialized_objects[key] = value.to_dict()
+        for key, obj_instance in FileStorage.__objects.items():
+            serialized_objects[key] = obj_instance.to_dict()
 
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
             json.dump(serialized_objects, file)
@@ -39,11 +39,11 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                for key, value in data.items():
+                for key, obj_dict in data.items():
                     class_name, obj_id = key.split('.')
                     class_obj = globals().get(class_name, None)
                     if class_obj:
-                        obj_instance = class_obj(**value)
+                        obj_instance = class_obj(**obj_dict)
                         FileStorage.__objects[key] = obj_instance
         except FileNotFoundError:
             pass
@@ -52,7 +52,8 @@ class FileStorage:
         """Return a dictionary representation of all objects."""
         attributes = {}
         for key, value in FileStorage.__objects.items():
-            attributes[key] = value.to_dict()
+            if hasattr(value, 'to_dict') and callable(getattr(value, 'to_dict')):
+                attributes[key] = value.to_dict()
         return attributes
 
     def from_dict(self, obj_dict):
