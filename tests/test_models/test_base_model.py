@@ -57,7 +57,7 @@ class TestBaseModel(unittest.TestCase):
         """Tests attributes value for instance of a BaseModel class."""
         attributes = BaseModel().to_dict()
         o = BaseModel()
-        for k, v in attributes:
+        for k, v in attributes.items():
             self.assertTrue(hasattr(o, k))
             self.assertEqual(type(getattr(o, k, None)), type(v))
 
@@ -96,7 +96,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(res.group(2), b.id)
         s = res.group(3)
         s = re.sub(r"(datetime\.datetime\([^)]*\))", "'\\1'", s)
-        d = json.loads(s.replace("'", '"'))
+        d = eval(s)
         d2 = b.__dict__.copy()
         d2["created_at"] = repr(d2["created_at"])
         d2["updated_at"] = repr(d2["updated_at"])
