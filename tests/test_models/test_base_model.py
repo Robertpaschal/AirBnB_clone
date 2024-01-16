@@ -24,13 +24,11 @@ class TestBaseModel(unittest.TestCase):
     def tearDown(self):
         """Tears down test methods."""
         self.resetStorage()
-        pass
 
     def resetStorage(self):
         """Resets FileStorage data."""
         FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage.save()
 
     def test_3_instantiation(self):
         """Tests instantiation of BaseModel class."""
@@ -111,7 +109,9 @@ class TestBaseModel(unittest.TestCase):
         b = BaseModel()
         b.name = "Laura"
         b.age = 23
-        d = b.to_dict()
+        storage.save()
+        retrieved_object = storage.all()["BaseModel.{}".format(b.id)]
+        d = retrieved_object.to_dict()
         self.assertEqual(d["id"], b.id)
         self.assertEqual(d["__class__"], type(b).__name__)
         self.assertEqual(d["created_at"], b.created_at.isoformat())
@@ -164,7 +164,8 @@ class TestBaseModel(unittest.TestCase):
         b = BaseModel()
         b.save()
         key = "{}.{}".format(type(b).__name__, b.id)
-        d = {key: b.to_dict()}
+        retrieved_object = storage.all()["BaseModel.{}".format(b.id)]
+        d = {key: retrieved_object.to_dict()}
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
         with open(FileStorage._FileStorage__file_path,
                   "r", encoding="utf-8") as f:
