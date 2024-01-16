@@ -43,6 +43,21 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
+    def do_all(self, line):
+        """Prints all string representation of all instances"""
+        args = line.split()
+        if not args:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+
+        instances = storage,all(class_name)
+        print([str(instance) for instance in instances])
+
     def do_show(self, arg):
         """Prints the string representation of an instance."""
         args = arg.split()

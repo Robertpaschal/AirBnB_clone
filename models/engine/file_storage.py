@@ -12,12 +12,16 @@ from models.review import Review
 
 
 class FileStorage:
-    __file_path = "OK"
+    __file_path = "file.json"
     __objects = {}
 
-
-    def all(self):
+    def all(self, cls=None):
         """Return the dictionary __objects."""
+        if cls:
+            return {
+                    k: v
+                    for k, v in self.__object.items()
+                    if isinstance(v, cls)}
         return FileStorage.__objects
 
     def new(self, obj):
@@ -52,7 +56,10 @@ class FileStorage:
         """Return a dictionary representation of all objects."""
         attributes = {}
         for key, value in FileStorage.__objects.items():
-            if hasattr(value, 'to_dict') and callable(getattr(value, 'to_dict')):
+            if hasattr(
+                    value,
+                    'to_dict') and callable(
+                            getattr(value, 'to_dict')):
                 attributes[key] = value.to_dict()
         return attributes
 
