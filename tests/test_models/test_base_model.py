@@ -58,7 +58,8 @@ class TestBaseModel(unittest.TestCase):
 
         attributes = storage.attributes()["BaseModel"]
         o = BaseModel()
-        for k, v in attributes.items():
+        attributes = o.to_dict().keys()
+        for k, v in attributes:
             self.assertTrue(hasattr(o, k))
             self.assertEqual(type(getattr(o, k, None)), v)
 
