@@ -20,10 +20,21 @@ class FileStorage:
         if cls:
             return {
                     k: v
-                    for k, v in self.__object.items()
+                    for k, v in self.__objects.items()
                     if isinstance(v, cls)}
         return FileStorage.__objects
 
+    def classes(self):
+        """returns a dictionary of classes"""
+        return {
+                'BaseModel': BaseModel,
+                'User': User,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review
+                }
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id."""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)

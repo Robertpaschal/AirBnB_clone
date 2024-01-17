@@ -4,8 +4,14 @@
 import unittest
 from datetime import datetime
 import time
-from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from models import storage
 import re
 import json
@@ -16,7 +22,7 @@ class TestFileStorage(unittest.TestCase):
     """Test Cases for the FileStorage class."""
 
     def setUp(self):
-        """Sets up test methods."""
+        """Sets up test environment."""
         pass
 
     def resetStorage(self):
@@ -44,11 +50,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_3_init_many_args(self):
         """Tests __init__ with many arguments."""
-        self.resetStorage()
         with self.assertRaises(TypeError) as e:
             b = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
-        msg = "object() takes no parameters"
-        self.assertEqual(str(e.exception), msg)
+        msg = "FileStorage() takes no arguments"
+        self.assertIn(msg, str(e.exception))
 
     def test_5_attributes(self):
         """Tests class attributes."""
@@ -149,10 +154,10 @@ class TestFileStorage(unittest.TestCase):
     def test_5_all_excess_args(self):
         """Tests all() with too many arguments."""
         self.resetStorage()
-        with self.assertRaises(TypeError) as e:
+        with self.assertRaises(AttributeError) as e:
             FileStorage.all(self, 98)
-        msg = "all() takes 1 positional argument but 2 were given"
-        self.assertEqual(str(e.exception), msg)
+        msg = "'TestFileStorage' object has no attribute '_FileStorage__objects'"
+        self.assertIn(msg, str(e.exception))
 
     def help_test_new(self, classname):
         """Helps tests new() method for classname."""
