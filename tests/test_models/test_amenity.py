@@ -42,9 +42,14 @@ class TestAmenity(unittest.TestCase):
 
     def test_8_attributes(self):
         """Tests the attributes of Amenity class."""
-        attributes = storage.attributes()["Amenity"]
+        all_attributes = storage.attributes()
+
+        amenity_attributes = all_attributes.get("Amenity", None)
+        self.assertIsNotNone(
+                amenity_attributes,
+                "Amenity class not found in attributes")
         o = Amenity()
-        for k, v in attributes.items():
+        for k, v in amenity_attributes.items():
             self.assertTrue(hasattr(o, k))
             self.assertEqual(type(getattr(o, k, None)), v)
 

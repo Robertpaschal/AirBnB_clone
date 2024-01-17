@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        instances = storage,all(class_name)
+        instances = storage.all(class_name)
         print([str(instance) for instance in instances])
 
     def do_show(self, arg):

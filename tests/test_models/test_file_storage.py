@@ -156,7 +156,8 @@ class TestFileStorage(unittest.TestCase):
         self.resetStorage()
         with self.assertRaises(AttributeError) as e:
             FileStorage.all(self, 98)
-        msg = "'TestFileStorage' object has no attribute '_FileStorage__objects'"
+        msg =
+        "'TestFileStorage' object has no attribute '_FileStorage__objects'"
         self.assertIn(msg, str(e.exception))
 
     def help_test_new(self, classname):
