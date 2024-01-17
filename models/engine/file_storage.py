@@ -35,6 +35,7 @@ class FileStorage:
                 'Place': Place,
                 'Review': Review
                 }
+
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id."""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
