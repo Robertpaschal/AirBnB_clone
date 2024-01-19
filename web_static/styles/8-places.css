@@ -56,3 +56,26 @@ h2 {
 .description {
 	margin-top: 20px;
 }
+
+.icon {
+	width: 100px;
+	height: 40px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: left center;
+	display: flex;
+	align-items: center;
+	padding-left: 40px;
+}
+
+.max_guest {
+	background-image: url('images/guests.png');
+}
+
+.number_rooms {
+	background-image: url('images/bedroom.png');
+}
+
+.number_bathrooms {
+	background-image: url('images/bath.png');
+}
